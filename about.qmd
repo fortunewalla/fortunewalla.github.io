@@ -1,0 +1,55 @@
+---
+#title: "About"
+# image: profile.jpg
+about:
+  id: hero-heading
+  template: jolla
+  links:
+    - icon: twitter
+      aria-label: Twitter
+      href: https://twitter.com
+    - icon: linkedin
+      aria-label: LinkedIn
+      href: https://linkedin.com
+    - icon: github
+      aria-label: Github
+      href: https://github.com
+    - icon: rss
+      aria-label: RSS Feed
+      href: index.xml
+
+---
+
+*Explore product management, data science, & the metaverse.*
+
+![](intro.jpg){fig-alt="Portrait of a young Indian scholar, Mughal miniature by Mir Sayyid Ali, c. 1550." width="300px" fig-align="center" }
+
+<!--![](glider.svg){fig-alt="Portrait of a young Indian scholar, Mughal miniature by Mir Sayyid Ali, c. 1550." width="100px" fig-align="center" }-->
+
+*“Turn yourself not away from three best things: Good Thought, Good Word, and Good Deed.” \~ [Zarathushtra](https://www.britannica.com/biography/Zarathustra)*
+
+The website content is divided into four main types:
+
+* [Projects](/#category=project): Longer term and more complex work involving code, and other software websites.
+* [Articles](/#category=article): Shorter term work involving coding and analysis and opinion. Reviews would come under articles.
+* [Guides](/#category=guide): Longer term and frequently updated notes for learning topics.
+* [Misc](/#category=misc): Random stuff that does not fit anything formal.
+
+The content categories are further divided into four main areas:
+
+* [Product Management](/#category=product): Planning, creating, designing, managing, & selling products. UI/UX design, technology, business & startups.
+* [Data Science](/#category=datascience): Data science, analytics, visualization, machine learning & artificial intelligence.
+* [Metaverse](/#category=metaverse): Includes Augmented, Virtual, Mixed, Extended Reality hardware, software, code & business 
+* [Software](/#category=software): Usage, coding, setup, scripts, algorithsm, & recommendations.  
+
+
+Click here to view [Portfolio of work](index.qmd)
+
+Thoughts that have had an impact on my thinking:
+
+* "In order to change, I have to be something I'm not. I came here to turn things around. To become the best in the world. Unless I beat someone stronger than me, that won't happen." \~ Blue Lock
+
+
+:::{#hero-heading}
+
+:::

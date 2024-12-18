@@ -1,0 +1,39 @@
+---
+title: "Choice of moving average or exponential smoothing for a particular product profile"
+#author: "Fortune Walla"
+date: "2015-11-23"
+date-modified: "2015-11-23"
+categories: [article,product,excel,forecasting]
+#image: "image.jpg"
+#draft: true
+---
+
+## Introduction 
+
+The demand data for a product has been shown in the table below. Compare the forecasts using a Moving Average with a period of 5 months, MA(5), and an Exponential smoothing Method with an α of 0.33. For Exponential Smoothing use the midpoint of first 5 month range of the average as the initial Forecast. (Hint: the Exponential Smoothing Forecast will be initialized with a forecast of 4951 for April made in March.)
+
+## Visualization of raw data 
+
+![](fig1.jpg)
+
+### Forecasting with 5-point moving average & simple exponential smoothing 
+
+Here we use α=1/3 for our exponential smoothing model
+
+![](fig2.jpg)
+
+### Accuracy of the models 
+
+To estimate the accuracy of the models, we first compare the Mean Absolute Deviation (MAD) for each of the models.
+
+|     | **5MA**  | **SES**  |
+|-----|----------|----------|
+| MAD | 453.7429 | 432.0553 |
+
+Also comparing the error cumulatively gives a better picture of the accuracy of each of the models.
+
+![](fig3.jpg)
+
+### Conclusion 
+
+For this particular product, the forecasts from June to December show that SES is performing better than 5MA. SES outperforms 5MA for 5 months while 5MA outperforms SES for only 2 months.

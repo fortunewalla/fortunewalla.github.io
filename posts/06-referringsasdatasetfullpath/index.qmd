@@ -1,0 +1,21 @@
+---
+title: "Referring to a SAS data set with its full filesystem path"
+#author: "Fortune Walla"
+date: "2014-04-04"
+date-modified: "2015-08-16"
+categories: [article,datascience,sas]
+#image: "image.jpg"
+#draft: true
+---
+*Posted on Friday, April 4th, 2014 at 3:14 am*
+
+The standard way of referring to a SAS data set is through its library reference. i.e. `LIBREF.DATASETNAME`. However SAS also allows accessing the data set using the full filesystem path. Although not very useful, it does show the versatility that SAS allows the user. It can be used in situations where the data set needs to be accessed without defining a library name reference to access it.
+```
+proc print data=sasuser.admit;
+run;
+```
+Using the full filesystem path we get:
+```
+proc print data='C:\Documents and Settings\sasuser\My Documents\My SAS Files\9.1\admit.sas7bdat'; 
+run;
+```

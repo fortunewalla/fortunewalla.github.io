@@ -1,0 +1,108 @@
+---
+title: "Extracting initial parameters from an existing Holt‐Winter forecasting model"
+#author: "Fortune Walla"
+date: "2015-11-29"
+date-modified: "2015-11-29"
+categories: [article,product,excel,forecasting]
+#image: "image.jpg"
+#draft: true
+---
+
+**Objective**
+
+The model is known but the initial parameters need to be found.
+
+# Introduction 
+
+You are hired by a local company to help them improve their forecasting
+capabilities. You are tasked with coming up with quarterly forecasts for an item
+that appears to have level, seasonality, and trend. The good news is that the
+company has an existing Holt‐Winter forecasting model. The bad news is that no
+one knows what the parameters (Alpha, Beta, or Gamma) are.
+
+You do have some information. For example, you know that historically, the
+demand in each quarter follows this distribution:
+
+* Q1 (January through March) = 50% of average quarterly demand
+* Q2 (April through June) = 75% of average quarterly demand 
+* Q3 (July through
+    September) = 150% of average quarterly demand
+* Q4 (October through December) = 125% of average quarterly demand.
+
+You just ran the forecast at the end of September (end of 2014Q3) and you have
+the following estimates:
+
+For level: $\hat{a}_{2014Q3}$  = 1052 units
+
+For trend: $\hat{b}_{2014Q3}$ = 46.2 units per quarter
+
+**Q1. What is the forecast for demand for 2014Q4?**
+
+We know that
+
+$\hat{x}_{t,t+\tau}=(\hat{a_{t}}+\tau\hat{b_{t}})\hat{F}_{t+\tau-P}$
+
+$\hat{a}_{t}=\alpha \left(\frac{x_{t}}{\hat{F}_{t-P}}\right) +(1-\alpha)(\hat{a}_{t-1}+\hat{b}_{t-1})$
+
+$\hat{b}_{t}=\beta(\hat{a}_{t}-\hat{a}_{t-1})+(1-\beta)\hat{b}_{t-1}$
+
+$\hat{F}_{t}=\gamma \left(\frac{x_{t}}{\hat{a}_{t}}\right) +(1-\gamma)\hat{F}_{t-P}$
+
+
+|        | x | $\hat{a}$  | $\hat{b}$  | $\hat{F}$ | $\hat{x}$     | $\hat{F}_{t-P}$ |
+|--------|---|------------|------------|-----------|---------------|-----------------|
+| 2014Q3 |   | 1052 | 46.2 |     | 1372.75 | 1.25 (2013Q4) |
+| 2014Q4 |   |      |      |     |         |               |
+
+**Q2. Suppose the actual demand in 2014Q4 is 1100 units. What is the smallest &
+largest possible value for your estimate for level, $\hat{a}_{2014Q4}$?**
+
+The fourth quarter level estimate = $\hat{a}_{2014Q4} = \hat{x}_{2014Q4} / \hat{F}_{2013Q4}$
+
+Without seasonality, level estimate = $\hat{a}_{2014Q4} = (\hat{a}_{2014Q3}+\hat{b}_{2014Q34})$
+
+|          | Alpha |        | x |      | $\hat{a}$    | $\hat{b}$  | $\hat{F}$ | $\hat{x}$     | $\hat{a}_{t-P}$ |
+|----------|-------|--------|---|------|--------------|------------|-----------|---------------|-----------------|
+|          |       | 2014Q3 |   |      | 1052   | 46.2 |     | 1372.75 | 1.25 (2013Q4) |
+| Smallest | 1     | 2014Q4 |   | 1100 | 880    |      |     |         |               |
+| Largest  | 0     | 2014Q4 |   | 1100 | 1098.2 |      |     |         |               |
+
+**Q3. The model was run at the end of 2014Q4. It provided you with the most
+recent estimates of each pattern. A) The estimate for level, $\hat{a}_{2014Q4}$ was
+1065.5. What is value of alpha? B) Estimate of trend, $\hat{b}_{2014Q4}$ = 42.9, what is
+value of beta? C) Estimate of seasonality is $\hat{F}_{2014Q4}$ = 1.239**
+
+| **Estimate**  | **Given**  | **Equation**  |             |           | **Parameter**  | **Solved**  |
+|---------------|------------|---------------|-------------|-----------|----------------|-------------|
+| $\hat{a}_{2014Q4}$     | 1065.5     | 1065.5$=\alpha \left(\frac{1100}{1.25}\right) +(1-\alpha)(1052+46.2)$   | 1100        | 1052 46.2 | Alpha          | 0.15        |
+| $\hat{b}_{2014Q4}$     | 42.9       | 42.9$=\beta(1.065.5-1052)+(1-\beta)46.2$ | 1065.5 1052 | 1 46.2 | Beta           | 0.1         |
+| $\hat{F}_{2014Q4}$     | 1.239      | 1.239$=\gamma \left(\frac{1100}{1065.5}\right) +(1-\gamma)1.25$ | 1100        | 1 1.25    | Gamma          | 0.05        |
+
+
+**Q4. What is your forecast for demand for the 1st quarter of 2015? That is
+$\hat{a}_{2014Q4,2015Q1}$?**
+
+$\hat{x}_{2014Q4,2015Q1} =(\hat{a}_{2014Q1} + \hat{b}_{2014Q1}) \hat{F}_{2014Q4}$
+
+We have the unnormalized seasonality factor, $\hat{F}_{2014Q4} = 1.239$
+
+Since the sum of the most recent season estimates (0.500, 0.750, 1.500, and
+1.239 for Q1, Q2, Q3, and
+
+Q4) adds up to 3.98912, , we need to normalize $\hat{F}_{2014Q4}$ before we use it in our
+calculations. We use the formula
+
+$$
+\hat{F}_{iadj}=\hat{F}_{iold}\frac{P}{\sum{\hat{F}_{i}}}
+$$
+
+So we have $\hat{F}_{2014Q1} = 0.500*(4.000/3.989) = 0.50136$
+
+$\hat{x}_{2014Q4,2015Q1} =(\hat{a}_{2014Q1} + \hat{b}_{2014Q1}) \hat{F}_{2014Q1}$ 
+
+$\hat{x}_{2014Q4,2015Q1} = (1065.5 + 42.9)(0.501) = 555.3084 = 555.31$
+
+If you did not normalize the seasonality factor you would have gotten =
+(1065.5 + 42.9)(0.500) = 554.20. Normalizing the seasonality factors prevents
+the estimates from drifting. In this case, it is a small drift ‐ but over time
+it would grow.

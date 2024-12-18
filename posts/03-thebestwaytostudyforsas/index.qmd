@@ -1,0 +1,41 @@
+---
+title: "The best options to study for SAS Certified Base Programmer for SAS 9 Credential"
+#author: "Fortune Walla"
+date: "2014-02-21"
+date-modified: "2015-08-16"
+categories: [article,datascience,sas]
+#image: "image.jpg"
+#draft: true
+---
+
+*Created on Friday, February 21st, 2014 at 6:59 am*
+
+If SAS software will be a part of your career then get certified by passing the SAS Base Programming Exam from SAS Institute. It is designed to test your knowledge in writing SAS programs to access & manage data to perform queries and analyses. It also creates a good impression to your client / company.
+
+<http://support.sas.com/certify/creds/bp.html>
+
+**Option 1:** If you can afford it or have your company/institution sponsor/subsidize you, then the two courses offered by the SAS Institute is the best way to learn the Base SAS system & programming.
+
+SAS Programming 1: Essentials
+<http://support.sas.com/edu/schedules.html?id=277&ctry=US>
+
+SAS Programming 2: Data Manipulation Techniques
+<http://support.sas.com/edu/schedules.html?id=278&ctry=US>
+
+It is a highly structured course with code examples, exercises & practice questions that will thoroughly teach you the basic concepts of SAS software & Base SAS programming.
+
+**Option 2:** The next best option is to purchase the following book
+
+Base SAS Programmer Certification 3rd edition
+
+<http://www.amazon.com/SAS-Certification-Prep-Guide-Programming/dp/1607649241/ref=sr_1_1?ie=UTF8>
+
+It is a condensed version of the full course & hence is the best option for those that cannot afford the full course. Use it with the Base SAS software available at your academic institution or company & practice all the example code. You can also buy access to SAS OnDemand to use SAS software through the Internet to practice for the exam.
+
+**Option 3:** Join an institute that offer training in SAS & statistical analysis. They usually frame their SAS course syllabus & material from the official courses & have computer labs with access to Base SAS software. The advantage here is having an instructor who can give you feedback on your progress & clear your doubts & queries regarding the exam.
+
+*Preparation:* You can be ready with 4-5 months of preparation if you follow any of the above options. Modifying existing code & using different procedures / keywords to achieve the same result is best way to understand how SAS works. It requires time & practice as SAS software is vast & comprehensive.
+
+SAS Institute also offers a practice exam that you can purchase to test yourself before attempting the actual exam.
+
+It should be understood that in addition to all this, there is an abundant amount of material on the Web to help you learn Base SAS programming & prepare for the certification credential exam. All the best!

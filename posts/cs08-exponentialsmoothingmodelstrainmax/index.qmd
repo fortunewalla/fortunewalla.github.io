@@ -1,0 +1,61 @@
+---
+title: "Exponential smoothing models at TrainMax Systems"
+#author: "Fortune Walla"
+date: "2015-11-23"
+date-modified: "2015-11-23"
+categories: [article,product,excel,forecasting]
+#image: "image.jpg"
+#draft: true
+---
+Objective:
+
+# Introduction 
+
+You have been called in to take another look at TrainMax's forecasting problems.
+Recall from the earlier problem that TrainMax is a manufacturer of high‐end
+specialty engine equipment for high speed trains. They produce parts that are
+sent to the original equipment manufacturers (OEMs) for manufacturing new
+engines. They face a continuing challenge of trying to forecast demand for their
+products. The demand for one part in particular, XC‐288, was highlighted as
+needing to be examined.
+
+# Visualization of the raw data 
+
+![](fig1.jpg)
+
+## Simple Exponential Smoothing (SES) model 
+
+We try this model as it looks like there is stationary demand & no trend. We
+need to assign the initial parameters first. We start with period 0 where we
+assume the forecast for the period 1 is the same as the demand for period 1.
+Also assume initial α=0.12
+
+Using this we have
+
+![](fig2.jpg)
+
+## Varying alpha to get the most accurate model 
+
+| **SES alpha**  | **MAPE**    |            | **RMSE**    |            |   |   |
+|----------------|-------------|------------|-------------|------------|---|---|
+| 0.12           | 0.052619    |            | 74.00847195 |            |   |   |
+| 0.20925        | 0.04772     | LEAST MAPE | 69.79034    |            |   |   |
+| 0.29816        | 0.048748836 |            | 68.96512784 | LEAST RMSE |   |   |
+| 0.4            | 0.05095862  |            | 69.57546188 |            |   |   |
+| 0.9            | 0.062207335 |            | 81.68324857 |            |   |   |
+
+![](fig3.jpg)
+
+## Conclusion 
+
+By varying Alpha we are merely trying to fit the model & minimize the error to
+historical data. Such tweaking will not necessarily produce a forecast. Also the
+coefficient of variation needs to be looked at. Higher CV means that data is
+more volatile & thus Alpha needs to be high to follow these fast changes.
+
+Also increasing Alpha does not change the forecast much. This shows the
+robustness of the SES model.
+
+From the above data, an increase between 0.15 and 0.20 would give a good
+forecasting model. But whatever the value of Alpha to be used in the model, it
+needs to be tested on new data to see how it performs.

@@ -1,0 +1,67 @@
+---
+title: "Some questions to ask entrepreneurs"
+#author: "Fortune Walla"
+date: "2016-02-11"
+date-modified: "2016-02-11"
+categories: [article,product,mitx]
+#image: "image.jpg"
+#draft: true
+---
+*Based on MITx bootcamp notes*
+
+### Part 1 - Basic questions:
+Q01. What is the problem you want to solve?  
+Q02. Who experiences the problem?  
+Q03. How do you want to solve this problem?  
+Q04. Why is this a better solution?  
+Q05. If you could describe your product in about 10 words without using anything fancy. How would you say it?  
+Q06. What is the one thing you feel you can do (for your customer) better than everyone else?  
+
+### Part 2 - Business Plan:
+Q07. Why did you pick up this particular field of all the other things to solve?  
+Q08. What are the many business opportunities do you see in this field?  
+Q09. What skills do you need to learn to pursue these opportunities?  
+Q10. And with people of what skills, strengths, and interests would you like to collaborate in that pursuit?  
+
+### Part 3 - Market Segmentation:
+Q11. What are you top 3 markets (e.g. educational, aerospace, medical etc... ) for your business?  
+Q12. Did you do primary customer research? If so, what was the main feedback given?  
+Q13. In what way did you change your business model as a result of this feedback?  
+
+### Part 4 - Beachhead market: initial market segment that is easy to grow & profit
+Q14. What do you think is your beachhead market? (e.g. small biz.,schools, houses, retail etc...)  
+Q15. Is there competition that could block you from getting this business of this market?  
+Q16. What is your plan to deal with them?  
+Q17. If you win this market will it help you to win other market segments?  
+
+### Part 5 - End user profile: Common characteristics among all your customers
+Q18. Have you profiled your customers in terms of demographics, their motivations for solving their problem & also socio-economic profiles?  
+Q19. Do you have the unique characteristics of your customers that you can use to identify other customers?  
+Q20. How many such kind of customers are there in your beachhead market?  
+
+### Part 6 - TAM (Total addressable market): Total revenue from your beachhead market.
+TAM = Total no. of customers possible * Avg. Revenue per customer per Year.  
+Q21. Do you have any idea of your TAM size? Can you capture 100% of it?  
+Q22. How much percent can you achieve in the next 5 years?  
+
+### Part 7 - Persona: More detailed profiling of customers.
+Q23. How do you plan to get your next 100 customers?  
+
+### Part 8 - High Level Product Specification: Complete overview of the product.
+Q24. Does your team & customers have the same idea about what the service is & the direction it is evolving?  
+Q25. What steps are you taking to improve on this?  
+ 
+### Part 9 - Last Words:
+Q26. What motivates you to do this every single day?  
+Q27. What keeps you awake at night about your business?  
+Q28. Is there any situation where you might seriously consider walking away?  
+Q29. What are the top 3 things you learnt from starting & running this?  
+Q30. Anything you wish to share about your experiences that most people don't know?  
+
+### Part 10 - Introspection
+
+1. What made you interested to meet this entrepreneur and how the entrepreneur’s work or life story aligns with your interests.
+2. What you learned about the entrepreneur and the entrepreneur’s startup before your meeting, and what questions you prepared for the entrepreneur.
+3. What you learned by meeting the entrepreneur, and how that compares or contrasts with your perspective before the meeting. 
+4. What problem the entrepreneur is solving, for what target customer, with what solution, and what makes the solution unique.
+5. Describe your thoughts on the potential of the entrepreneur’s startup.
