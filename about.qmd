@@ -45,11 +45,6 @@ The content categories are further divided into four main areas:
 
 Click here to view [Portfolio of work](index.qmd)
 
-Thoughts that have had an impact on my thinking:
-
-* "In order to change, I have to be something I'm not. I came here to turn things around. To become the best in the world. Unless I beat someone stronger than me, that won't happen." \~ Blue Lock
-
-
 :::{#hero-heading}
 
 :::
