@@ -45,12 +45,12 @@ Current Work & Projects:
 
 <!--* Review of paper "A comprehensive overview of software product management challenges"-->
 
-* Jira Product Discovery Workflows
+<!--* Jira Product Discovery Workflows-->
 
-* Postman API Software
+<!--* Postman API Software-->
 
-* PM Frameworks
+<!--* PM Frameworks-->
 
-* PM Templates
+<!--* PM Templates-->
 
-Below is a list of all work done and ongoing projects.
+<!--Below is a list of all work done and ongoing projects.-->
