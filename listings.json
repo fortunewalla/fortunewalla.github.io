@@ -1,0 +1,32 @@
+[
+  {
+    "listing": "/index.html",
+    "items": [
+      "/posts/post-with-code/index.html",
+      "/posts/welcome/index.html",
+      "/posts/13-questionstoaskentrepreneurs/index.html",
+      "/posts/cs10-extractinginitialparametersexistingholtwinter/index.html",
+      "/posts/cs09-forecastingseasonaltrendsblayk/index.html",
+      "/posts/cs08-exponentialsmoothingmodelstrainmax/index.html",
+      "/posts/cs07-forecastingforsugarbonbon/index.html",
+      "/posts/cs06-choiceofmovingaverageorexponential/index.html",
+      "/posts/cs05-evaluationofstationarydemand/index.html",
+      "/posts/cs04-analysisofblackboxtypedemand/index.html",
+      "/posts/cs02-performancecharacteristics/index.html",
+      "/posts/cs01-suitabilityofstationarydemandmodels/index.html",
+      "/posts/cs03-comparisonnaivecumulative/index.html",
+      "/posts/03-thebestwaytostudyforsas/index.html",
+      "/posts/09-connectquerymssqlsasinterfaceodbc/index.html",
+      "/posts/07-softwarechoicesremotedb/index.html",
+      "/posts/02-howdoigetstarted/index.html",
+      "/posts/04-combinatorialfunctionsas/index.html",
+      "/posts/05-howtofindnoofobssas/index.html",
+      "/posts/06-referringsasdatasetfullpath/index.html",
+      "/posts/08-projecttoimplementremotedb/index.html",
+      "/posts/01-whatisdatascience/index.html",
+      "/posts/11-geointfinalproject/index.html",
+      "/posts/12-briefoverviewprinciplesgeoint/index.html",
+      "/posts/10-businessopportunities/index.html"
+    ]
+  }
+]

@@ -1,0 +1,2159 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.43">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="dcterms.date" content="2014-05-18">
+
+<title>Connect to and query Microsoft SQL Server using SAS/ACCESS Interface to ODBC – L’Œuvre</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../favicon.png" rel="icon" type="image/png">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-d4d76bf8491c20bad77d141916dc28e1.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-4379b0ccadffce622b03caf4c46266b3.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-d75320580429fd03ccc14abf5aea7e44.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-03cff2e87a80ce85282700c0d3d2a4d3.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed fullcontent">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">L’Œuvre</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> <i class="bi bi-question-circle" role="img">
+</i> 
+<span class="menu-text"> </span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="../../index.xml"> <i class="bi bi-rss" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Connect to and query Microsoft SQL Server using SAS/ACCESS Interface to ODBC</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">article</div>
+    <div class="quarto-category">datascience</div>
+    <div class="quarto-category">sas</div>
+    <div class="quarto-category">odbc</div>
+  </div>
+  </div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">May 18, 2014</p>
+    </div>
+  </div>
+  
+    <div>
+    <div class="quarto-title-meta-heading">Modified</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date-modified">August 16, 2015</p>
+    </div>
+  </div>
+    
+  </div>
+  
+
+
+</header>
+
+
+<p><em>Created on Sunday, May 18th, 2014 at 3:24 am</em></p>
+<p>One of the important skills in SAS is being able to connect &amp; query a local or remote database, conduct data analysis in SAS &amp; write the new information back to the database. SAS provides access to a variety of databases as well as different ways of doing so. In this article, access to Microsoft SQL Server (MSSQL) using SAS/ACCESS ODBC interface is explained. If you are using SAS at an institute or organization, your Systems Administrator would have setup everything. The steps in this article might vary depending on the software configuration.</p>
+<section id="introduction" class="level3">
+<h3 class="anchored" data-anchor-id="introduction">Introduction</h3>
+<p><strong>SAS methods for accessing relational database data [1]</strong></p>
+<p>SAS/ACCESS Interface to Relational Databases is a family of interfaces each licensed separately with which you can interact with data in other vendor databases from within SAS. SAS/ACCESS provides these methods for accessing relational DBMS data.</p>
+<ul>
+<li><p>You can use the <strong>LIBNAME</strong> statement to assign SAS librefs to DBMS objects such as schemas and databases. After you associate a database with a libref, you can use a SAS two-level name to specify any table or view in the database. You can then work with the table or view as you would with a SAS data set.</p></li>
+<li><p>You can use the <strong>SQL pass-through</strong> facility to interact with a data source using its native SQL syntax without leaving your SAS session. SQL statements are passed directly to the data source for processing.</p></li>
+<li><p>You can use <strong>ACCESS</strong> and <strong>DBLOAD</strong> procedures for indirect access to DBMS data. Although SAS still supports these procedures for database systems and environments on which they were available for SAS 6, they are no longer the recommended method for accessing DBMS data.</p></li>
+</ul>
+<p>Not all SAS/ACCESS interfaces support all of these features. To determine which features are available in your environment, see SAS documentation.</p>
+<p><strong>SAS/ACCESS interfaces to connect with MSSQL. [1]</strong> SAS provides many ways to establish a connection to a MSSQL database depending on your site license. Some of them are:</p>
+<ul>
+<li><p>SAS/ACCESS Interface to <strong>Microsoft SQL Server:</strong> This has been tested and certified against Data Direct Technologies Connect ODBC and Data Direct SequeLink ODBC products.</p></li>
+<li><p>SAS/ACCESS Interface to <strong>ODBC</strong>, including ParAccel, Microsoft Parallel Data Warehouse, and more: Open database connectivity (ODBC) standards provide a common interface to a variety of data sources. The goal of ODBC is to enable access to data from any application, regardless of which DBMS handles the data.</p></li>
+<li><p>SAS/ACCESS Interface to <strong>OLE DB:</strong> Microsoft OLE DB is an application programming interface (API) that provides access to data that can be in a database table, an e-mail file, a text file, or another type of file. This SAS/ACCESS interface accesses data from these sources through OLE DB data providers such as Microsoft Access, Microsoft SQL Server, and Oracle.</p></li>
+</ul>
+</section>
+<section id="software-components-setup" class="level3">
+<h3 class="anchored" data-anchor-id="software-components-setup">Software components setup:</h3>
+<p><strong>1) ODBC DSN Source Setup:</strong> Please read the previous article about setting up MSSQL to accept remote connections. Make sure you setup the DSN to connect with SQL Server for your OS. Your institution/organization System Administrator should help you out with this. This is the procedure for Windows OS: <a href="http://broadwin.com/Manual/EngMan/23.3.3_Create_an_ODBC_DSN_to_SQL_Server.htm" class="uri">http://broadwin.com/Manual/EngMan/23.3.3_Create_an_ODBC_DSN_to_SQL_Server.htm</a></p>
+<p><strong>2) SAS/ACCESS Interfaces availability:</strong> Before starting make sure your SAS installation contains the SAS/ACCESS Interface tools to connect with external databases.</p>
+<p><strong>SOURCE CODE:</strong></p>
+<pre class="sas"><code>Proc setinit noalias;
+Run;</code></pre>
+<p><strong>OUTPUT:</strong> Partial output shown below.</p>
+<pre class="sas"><code>NOTE: PROCEDURE SETINIT used (Total process time):
+real time 0.04 seconds
+cpu time 0.00 seconds
+Product Expiration Dates:
+---SAS/ACCESS Interface to Microsoft SQL Server
+14DEC2015
+---SAS/ACCESS Interface to ODBC
+14DEC2015
+---SAS/ACCESS Interface to OLE DB
+14DEC2015
+---SAS/ACCESS Interface to Teradata
+14DEC2015</code></pre>
+<p>Ideally you should have Microsoft SQL Server, ODBC &amp; OLE DB. However, having only ODBC is enough, since most databases support ODBC</p>
+</section>
+<section id="sas-odbc-mssql-connection-examples2" class="level3">
+<h3 class="anchored" data-anchor-id="sas-odbc-mssql-connection-examples2">SAS ODBC MSSQL connection examples:[2]</h3>
+<p><strong>1) Setting up SAS ODBC MSSQL connection with prompt using LIBNAME statement.</strong> This uses the prompt method. The <code>SYSDBMSG</code> variable is used to write the connection details to the SAS LOG.</p>
+<p><strong>SOURCE CODE:</strong></p>
+<pre><code>libname sql odbc prompt;
+%put %superq(sysdbmsg);</code></pre>
+<ol type="a">
+<li>You are prompted to select a DSN source.</li>
+<li>You are prompted to enter the username &amp; password of the remote MSSQL connection.</li>
+<li>If the connection is successful, the following message is displayed.</li>
+</ol>
+<p><strong>OUTPUT:</strong></p>
+<pre><code>**SAS LOG:**
+10 libname sql odbc prompt;
+NOTE: Libref SQL was successfully assigned as follows:
+Engine: ODBC
+Physical Name: dbpcsql
+11 %put %superq(sysdbmsg);
+ODBC:
+DSN=dbpcsql;Description=dbpcsql;UID=userName;PWD=passWord;APP=SAS 9.2 for Windows;WSID=DBPC;Network=DBMSSOCN</code></pre>
+<p><strong>2) Setting up SAS ODBC MSSQL connection to <em>master</em> database using LIBNAME statement:</strong></p>
+<p><strong>SOURCE CODE:</strong></p>
+<pre><code>LIBNAME mssql odbc user='userName' password='passWord' datasrc=dbpcsql schema=dbo;
+
+data new;
+set mssql.spt_monitor;
+run;
+
+proc print data=mssql.spt_monitor;run;</code></pre>
+<p><strong>OUTPUT:</strong></p>
+<pre><code>**SAS LOG:**
+1 LIBNAME mssql odbc user='userName' password=XXXXXX datasrc=dbpcsql schema=dbo;
+
+NOTE: Libref MSSQL was successfully assigned as follows:
+Engine: ODBC
+Physical Name: dbpcsql
+2 data new;
+3 set mssql.spt_monitor;
+4 run;
+
+NOTE: There were 1 observations read from the data set
+MSSQL.spt_monitor.
+NOTE: The data set WORK.NEW has 1 observations and 11 variables.
+NOTE: DATA statement used (Total process time):
+real time 0.34 seconds
+cpu time 0.03 seconds
+
+5 proc print data=mssql.spt_monitor;run;
+NOTE: Writing HTML Body file: sashtml.htm
+NOTE: PROCEDURE PRINT used (Total process time):
+real time 1.28 seconds
+cpu time 0.28 seconds
+**Results Viewer:sashtml**</code></pre>
+<p>The SAS System</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 8%">
+<col style="width: 12%">
+<col style="width: 7%">
+<col style="width: 6%">
+<col style="width: 5%">
+<col style="width: 9%">
+<col style="width: 7%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 9%">
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Obs</strong></th>
+<th><strong>lastrun</strong></th>
+<th><strong>cpu_busy</strong></th>
+<th><strong>io_busy</strong></th>
+<th><strong>idle</strong></th>
+<th><strong>pack_received</strong></th>
+<th><strong>pack_sent</strong></th>
+<th><strong>connections</strong></th>
+<th><strong>pack_errors</strong></th>
+<th><strong>total_read</strong></th>
+<th><strong>total_write</strong></th>
+<th><strong>total_errors</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>1</strong></td>
+<td>02APR2010:17:34:58.817</td>
+<td>9</td>
+<td>7</td>
+<td>792</td>
+<td>28</td>
+<td>28</td>
+<td>14</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<pre><code>  --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  **Obs**   **lastrun**              **cpu_busy**   **io_busy**   **idle**   **pack_received**   **pack_sent**   **connections**   **pack_errors**   **total_read**   **total_write**   **total_errors**
+  --------- ------------------------ -------------- ------------- ---------- ------------------- --------------- ----------------- ----------------- ---------------- ----------------- ------------------
+  **1**     02APR2010:17:34:58.817   9              7             792        28                  28              14                0                 0                0                 0
+  --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+  : Page Layout
+
+: Procedure Print: Data Set MSSQL.spt_monitor</code></pre>
+<p><strong>3) Setting up SAS ODBC MSSQL connection to <em>AdventureWorksDW</em> database using LIBNAME statement:</strong></p>
+<p><strong>SOURCE CODE:</strong></p>
+<pre><code>LIBNAME mssqlaw odbc user='userName' password='passWord' datasrc=dbpcsql qualifier=AdventureWorksDW2008R2 schema=dbo;
+
+proc print data=mssqlaw.DimCustomer(obs=15);run;</code></pre>
+<p><strong>OUTPUT</strong></p>
+<pre><code>**SAS LOG:**
+7 LIBNAME mssqlaw odbc user='userName' password=XXXXXX datasrc=dbpcsql
+7 ! qualifier=AdventureWorksDW2008R2 schema=dbo;
+NOTE: Libref MSSQLAW was successfully assigned as follows:
+Engine: ODBC
+Physical Name: dbpcsql
+8
+9 proc print data=mssqlaw.DimCustomer(obs=15);run;
+
+NOTE: PROCEDURE PRINT used (Total process time):
+real time 0.37 seconds
+cpu time 0.06 seconds
+**Results Viewer:sashtml**</code></pre>
+<p>The SAS System</p>
+<div class="table-responsive">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 2%">
+<col style="width: 2%">
+<col style="width: 3%">
+<col style="width: 4%">
+<col style="width: 1%">
+<col style="width: 2%">
+<col style="width: 2%">
+<col style="width: 2%">
+<col style="width: 2%">
+<col style="width: 2%">
+<col style="width: 3%">
+<col style="width: 2%">
+<col style="width: 2%">
+<col style="width: 5%">
+<col style="width: 3%">
+<col style="width: 3%">
+<col style="width: 4%">
+<col style="width: 3%">
+<col style="width: 3%">
+<col style="width: 3%">
+<col style="width: 3%">
+<col style="width: 3%">
+<col style="width: 3%">
+<col style="width: 3%">
+<col style="width: 3%">
+<col style="width: 3%">
+<col style="width: 3%">
+<col style="width: 3%">
+<col style="width: 3%">
+<col style="width: 3%">
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Obs</strong></th>
+<th><strong>CustomerKey</strong></th>
+<th><strong>GeographyKey</strong></th>
+<th><strong>CustomerAlternateKey</strong></th>
+<th><strong>Title</strong></th>
+<th><strong>FirstName</strong></th>
+<th><strong>MiddleName</strong></th>
+<th><strong>LastName</strong></th>
+<th><strong>NameStyle</strong></th>
+<th><strong>BirthDate</strong></th>
+<th><strong>MaritalStatus</strong></th>
+<th><strong>Suffix</strong></th>
+<th><strong>Gender</strong></th>
+<th><strong>EmailAddress</strong></th>
+<th><strong>YearlyIncome</strong></th>
+<th><strong>TotalChildren</strong></th>
+<th><strong>NumberChildrenAtHome</strong></th>
+<th><strong>EnglishEducation</strong></th>
+<th><strong>SpanishEducation</strong></th>
+<th><strong>FrenchEducation</strong></th>
+<th><strong>EnglishOccupation</strong></th>
+<th><strong>SpanishOccupation</strong></th>
+<th><strong>FrenchOccupation</strong></th>
+<th><strong>HouseOwnerFlag</strong></th>
+<th><strong>NumberCarsOwned</strong></th>
+<th><strong>AddressLine1</strong></th>
+<th><strong>AddressLine2</strong></th>
+<th><strong>Phone</strong></th>
+<th><strong>DateFirstPurchase</strong></th>
+<th><strong>CommuteDistance</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>1</strong></td>
+<td>11000</td>
+<td>26</td>
+<td>AW00011000</td>
+<td></td>
+<td>Jon</td>
+<td>V</td>
+<td>Yang</td>
+<td>0</td>
+<td>1970-04-08</td>
+<td>M</td>
+<td></td>
+<td>M</td>
+<td>jon24@adventure-works.com</td>
+<td>$90,000.00</td>
+<td>2</td>
+<td>0</td>
+<td>Bachelors</td>
+<td>Licenciatura</td>
+<td>Bac + 4</td>
+<td>Professional</td>
+<td>Profesional</td>
+<td>Cadre</td>
+<td>1</td>
+<td>0</td>
+<td>3761 N. 14th St</td>
+<td></td>
+<td>1 (11) 500 555-0162</td>
+<td>2005-07-22</td>
+<td>1-2 Miles</td>
+</tr>
+<tr class="even">
+<td><strong>2</strong></td>
+<td>11001</td>
+<td>37</td>
+<td>AW00011001</td>
+<td></td>
+<td>Eugene</td>
+<td>L</td>
+<td>Huang</td>
+<td>0</td>
+<td>1969-05-14</td>
+<td>S</td>
+<td></td>
+<td>M</td>
+<td>eugene10@adventure-works.com</td>
+<td>$60,000.00</td>
+<td>3</td>
+<td>3</td>
+<td>Bachelors</td>
+<td>Licenciatura</td>
+<td>Bac + 4</td>
+<td>Professional</td>
+<td>Profesional</td>
+<td>Cadre</td>
+<td>0</td>
+<td>1</td>
+<td>2243 W St.</td>
+<td></td>
+<td>1 (11) 500 555-0110</td>
+<td>2005-07-18</td>
+<td>0-1 Miles</td>
+</tr>
+<tr class="odd">
+<td><strong>3</strong></td>
+<td>11002</td>
+<td>31</td>
+<td>AW00011002</td>
+<td></td>
+<td>Ruben</td>
+<td></td>
+<td>Torres</td>
+<td>0</td>
+<td>1969-08-12</td>
+<td>M</td>
+<td></td>
+<td>M</td>
+<td>ruben35@adventure-works.com</td>
+<td>$60,000.00</td>
+<td>3</td>
+<td>3</td>
+<td>Bachelors</td>
+<td>Licenciatura</td>
+<td>Bac + 4</td>
+<td>Professional</td>
+<td>Profesional</td>
+<td>Cadre</td>
+<td>1</td>
+<td>1</td>
+<td>5844 Linden Land</td>
+<td></td>
+<td>1 (11) 500 555-0184</td>
+<td>2005-07-10</td>
+<td>2-5 Miles</td>
+</tr>
+<tr class="even">
+<td><strong>4</strong></td>
+<td>11003</td>
+<td>11</td>
+<td>AW00011003</td>
+<td></td>
+<td>Christy</td>
+<td></td>
+<td>Zhu</td>
+<td>0</td>
+<td>1972-02-15</td>
+<td>S</td>
+<td></td>
+<td>F</td>
+<td>christy12@adventure-works.com</td>
+<td>$70,000.00</td>
+<td>0</td>
+<td>0</td>
+<td>Bachelors</td>
+<td>Licenciatura</td>
+<td>Bac + 4</td>
+<td>Professional</td>
+<td>Profesional</td>
+<td>Cadre</td>
+<td>0</td>
+<td>1</td>
+<td>1825 Village Pl.</td>
+<td></td>
+<td>1 (11) 500 555-0162</td>
+<td>2005-07-01</td>
+<td>5-10 Miles</td>
+</tr>
+<tr class="odd">
+<td><strong>5</strong></td>
+<td>11004</td>
+<td>19</td>
+<td>AW00011004</td>
+<td></td>
+<td>Elizabeth</td>
+<td></td>
+<td>Johnson</td>
+<td>0</td>
+<td>1972-08-08</td>
+<td>S</td>
+<td></td>
+<td>F</td>
+<td>elizabeth5@adventure-works.com</td>
+<td>$80,000.00</td>
+<td>5</td>
+<td>5</td>
+<td>Bachelors</td>
+<td>Licenciatura</td>
+<td>Bac + 4</td>
+<td>Professional</td>
+<td>Profesional</td>
+<td>Cadre</td>
+<td>1</td>
+<td>4</td>
+<td>7553 Harness Circle</td>
+<td></td>
+<td>1 (11) 500 555-0131</td>
+<td>2005-07-26</td>
+<td>1-2 Miles</td>
+</tr>
+<tr class="even">
+<td><strong>6</strong></td>
+<td>11005</td>
+<td>22</td>
+<td>AW00011005</td>
+<td></td>
+<td>Julio</td>
+<td></td>
+<td>Ruiz</td>
+<td>0</td>
+<td>1969-08-05</td>
+<td>S</td>
+<td></td>
+<td>M</td>
+<td>julio1@adventure-works.com</td>
+<td>$70,000.00</td>
+<td>0</td>
+<td>0</td>
+<td>Bachelors</td>
+<td>Licenciatura</td>
+<td>Bac + 4</td>
+<td>Professional</td>
+<td>Profesional</td>
+<td>Cadre</td>
+<td>1</td>
+<td>1</td>
+<td>7305 Humphrey Drive</td>
+<td></td>
+<td>1 (11) 500 555-0151</td>
+<td>2005-07-02</td>
+<td>5-10 Miles</td>
+</tr>
+<tr class="odd">
+<td><strong>7</strong></td>
+<td>11006</td>
+<td>8</td>
+<td>AW00011006</td>
+<td></td>
+<td>Janet</td>
+<td>G</td>
+<td>Alvarez</td>
+<td>0</td>
+<td>1969-12-06</td>
+<td>S</td>
+<td></td>
+<td>F</td>
+<td>janet9@adventure-works.com</td>
+<td>$70,000.00</td>
+<td>0</td>
+<td>0</td>
+<td>Bachelors</td>
+<td>Licenciatura</td>
+<td>Bac + 4</td>
+<td>Professional</td>
+<td>Profesional</td>
+<td>Cadre</td>
+<td>1</td>
+<td>1</td>
+<td>2612 Berry Dr</td>
+<td></td>
+<td>1 (11) 500 555-0184</td>
+<td>2005-07-27</td>
+<td>5-10 Miles</td>
+</tr>
+<tr class="even">
+<td><strong>8</strong></td>
+<td>11007</td>
+<td>40</td>
+<td>AW00011007</td>
+<td></td>
+<td>Marco</td>
+<td></td>
+<td>Mehta</td>
+<td>0</td>
+<td>1968-05-09</td>
+<td>M</td>
+<td></td>
+<td>M</td>
+<td>marco14@adventure-works.com</td>
+<td>$60,000.00</td>
+<td>3</td>
+<td>3</td>
+<td>Bachelors</td>
+<td>Licenciatura</td>
+<td>Bac + 4</td>
+<td>Professional</td>
+<td>Profesional</td>
+<td>Cadre</td>
+<td>1</td>
+<td>2</td>
+<td>942 Brook Street</td>
+<td></td>
+<td>1 (11) 500 555-0126</td>
+<td>2005-07-12</td>
+<td>0-1 Miles</td>
+</tr>
+<tr class="odd">
+<td><strong>9</strong></td>
+<td>11008</td>
+<td>32</td>
+<td>AW00011008</td>
+<td></td>
+<td>Rob</td>
+<td></td>
+<td>Verhoff</td>
+<td>0</td>
+<td>1968-07-07</td>
+<td>S</td>
+<td></td>
+<td>F</td>
+<td>rob4@adventure-works.com</td>
+<td>$60,000.00</td>
+<td>4</td>
+<td>4</td>
+<td>Bachelors</td>
+<td>Licenciatura</td>
+<td>Bac + 4</td>
+<td>Professional</td>
+<td>Profesional</td>
+<td>Cadre</td>
+<td>1</td>
+<td>3</td>
+<td>624 Peabody Road</td>
+<td></td>
+<td>1 (11) 500 555-0164</td>
+<td>2005-07-28</td>
+<td>10+ Miles</td>
+</tr>
+<tr class="even">
+<td><strong>10</strong></td>
+<td>11009</td>
+<td>25</td>
+<td>AW00011009</td>
+<td></td>
+<td>Shannon</td>
+<td>C</td>
+<td>Carlson</td>
+<td>0</td>
+<td>1968-04-01</td>
+<td>S</td>
+<td></td>
+<td>M</td>
+<td>shannon38@adventure-works.com</td>
+<td>$70,000.00</td>
+<td>0</td>
+<td>0</td>
+<td>Bachelors</td>
+<td>Licenciatura</td>
+<td>Bac + 4</td>
+<td>Professional</td>
+<td>Profesional</td>
+<td>Cadre</td>
+<td>0</td>
+<td>1</td>
+<td>3839 Northgate Road</td>
+<td></td>
+<td>1 (11) 500 555-0110</td>
+<td>2005-07-30</td>
+<td>5-10 Miles</td>
+</tr>
+<tr class="odd">
+<td><strong>11</strong></td>
+<td>11010</td>
+<td>22</td>
+<td>AW00011010</td>
+<td></td>
+<td>Jacquelyn</td>
+<td>C</td>
+<td>Suarez</td>
+<td>0</td>
+<td>1968-02-06</td>
+<td>S</td>
+<td></td>
+<td>F</td>
+<td>jacquelyn20@adventure-works.com</td>
+<td>$70,000.00</td>
+<td>0</td>
+<td>0</td>
+<td>Bachelors</td>
+<td>Licenciatura</td>
+<td>Bac + 4</td>
+<td>Professional</td>
+<td>Profesional</td>
+<td>Cadre</td>
+<td>0</td>
+<td>1</td>
+<td>7800 Corrinne Court</td>
+<td></td>
+<td>1 (11) 500 555-0169</td>
+<td>2005-07-17</td>
+<td>5-10 Miles</td>
+</tr>
+<tr class="even">
+<td><strong>12</strong></td>
+<td>11011</td>
+<td>22</td>
+<td>AW00011011</td>
+<td></td>
+<td>Curtis</td>
+<td></td>
+<td>Lu</td>
+<td>0</td>
+<td>1967-11-04</td>
+<td>M</td>
+<td></td>
+<td>M</td>
+<td>curtis9@adventure-works.com</td>
+<td>$60,000.00</td>
+<td>4</td>
+<td>4</td>
+<td>Bachelors</td>
+<td>Licenciatura</td>
+<td>Bac + 4</td>
+<td>Professional</td>
+<td>Profesional</td>
+<td>Cadre</td>
+<td>1</td>
+<td>4</td>
+<td>1224 Shoenic</td>
+<td></td>
+<td>1 (11) 500 555-0117</td>
+<td>2005-07-02</td>
+<td>10+ Miles</td>
+</tr>
+<tr class="odd">
+<td><strong>13</strong></td>
+<td>11012</td>
+<td>611</td>
+<td>AW00011012</td>
+<td></td>
+<td>Lauren</td>
+<td>M</td>
+<td>Walker</td>
+<td>0</td>
+<td>1972-01-18</td>
+<td>M</td>
+<td></td>
+<td>F</td>
+<td>lauren41@adventure-works.com</td>
+<td>$100,000.00</td>
+<td>2</td>
+<td>0</td>
+<td>Bachelors</td>
+<td>Licenciatura</td>
+<td>Bac + 4</td>
+<td>Management</td>
+<td>GestiÃ³n</td>
+<td>Direction</td>
+<td>1</td>
+<td>2</td>
+<td>4785 Scott Street</td>
+<td></td>
+<td>717-555-0164</td>
+<td>2007-09-17</td>
+<td>1-2 Miles</td>
+</tr>
+<tr class="even">
+<td><strong>14</strong></td>
+<td>11013</td>
+<td>543</td>
+<td>AW00011013</td>
+<td></td>
+<td>Ian</td>
+<td>M</td>
+<td>Jenkins</td>
+<td>0</td>
+<td>1972-08-06</td>
+<td>M</td>
+<td></td>
+<td>M</td>
+<td>ian47@adventure-works.com</td>
+<td>$100,000.00</td>
+<td>2</td>
+<td>0</td>
+<td>Bachelors</td>
+<td>Licenciatura</td>
+<td>Bac + 4</td>
+<td>Management</td>
+<td>GestiÃ³n</td>
+<td>Direction</td>
+<td>1</td>
+<td>3</td>
+<td>7902 Hudson Ave.</td>
+<td></td>
+<td>817-555-0185</td>
+<td>2007-10-15</td>
+<td>0-1 Miles</td>
+</tr>
+<tr class="odd">
+<td><strong>15</strong></td>
+<td>11014</td>
+<td>634</td>
+<td>AW00011014</td>
+<td></td>
+<td>Sydney</td>
+<td></td>
+<td>Bennett</td>
+<td>0</td>
+<td>1972-05-09</td>
+<td>S</td>
+<td></td>
+<td>F</td>
+<td>sydney23@adventure-works.com</td>
+<td>$100,000.00</td>
+<td>3</td>
+<td>0</td>
+<td>Bachelors</td>
+<td>Licenciatura</td>
+<td>Bac + 4</td>
+<td>Management</td>
+<td>GestiÃ³n</td>
+<td>Direction</td>
+<td>0</td>
+<td>3</td>
+<td>9011 Tank Drive</td>
+<td></td>
+<td>431-555-0156</td>
+<td>2007-09-24</td>
+<td>1-2 Miles</td>
+</tr>
+</tbody>
+</table>
+</div>
+<pre><code>  ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  **Obs**   **CustomerKey**   **GeographyKey**   **CustomerAlternateKey**   **Title**   **FirstName**   **MiddleName**   **LastName**   **NameStyle**   **BirthDate**   **MaritalStatus**   **Suffix**   **Gender**   **EmailAddress**                  **YearlyIncome**   **TotalChildren**   **NumberChildrenAtHome**   **EnglishEducation**   **SpanishEducation**   **FrenchEducation**   **EnglishOccupation**   **SpanishOccupation**   **FrenchOccupation**   **HouseOwnerFlag**   **NumberCarsOwned**   **AddressLine1**   **AddressLine2**   **Phone**      **DateFirstPurchase**   **CommuteDistance**
+  --------- ----------------- ------------------ -------------------------- ----------- --------------- ---------------- -------------- --------------- --------------- ------------------- ------------ ------------ --------------------------------- ------------------ ------------------- -------------------------- ---------------------- ---------------------- --------------------- ----------------------- ----------------------- ---------------------- -------------------- --------------------- ------------------ ------------------ -------------- ----------------------- ---------------------
+  **1**     11000             26                 AW00011000                 &nbsp;           Jon             V                Yang           0               1970-04-08      M                   &nbsp;            M            jon24@adventure-works.com         \$90,000.00        2                   0                          Bachelors              Licenciatura           Bac + 4               Professional            Profesional             Cadre                  1                    0                     3761 N. 14th St    &nbsp;                  1 (11) 500     2005-07-22              1-2 Miles
+
+  **2**     11001             37                 AW00011001                 &nbsp;           Eugene          L                Huang          0               1969-05-14      S                   &nbsp;            M            eugene10@adventure-works.com      \$60,000.00        3                   3                          Bachelors              Licenciatura           Bac + 4               Professional            Profesional             Cadre                  0                    1                     2243 W St.         &nbsp;                  1 (11) 500     2005-07-18              0-1 Miles
+
+  **3**     11002             31                 AW00011002                 &nbsp;           Ruben           &nbsp;                Torres         0               1969-08-12      M                   &nbsp;            M            ruben35@adventure-works.com       \$60,000.00        3                   3                          Bachelors              Licenciatura           Bac + 4               Professional            Profesional             Cadre                  1                    1                     5844 Linden Land   &nbsp;                  1 (11) 500     2005-07-10              2-5 Miles
+
+  **4**     11003             11                 AW00011003                 &nbsp;           Christy         &nbsp;                Zhu            0               1972-02-15      S                   &nbsp;            F            christy12@adventure-works.com     \$70,000.00        0                   0                          Bachelors              Licenciatura           Bac + 4               Professional            Profesional             Cadre                  0                    1                     1825 Village Pl.   &nbsp;                  1 (11) 500     2005-07-01              5-10 Miles
+
+  **5**     11004             19                 AW00011004                 &nbsp;           Elizabeth       &nbsp;                Johnson        0               1972-08-08      S                   &nbsp;            F            elizabeth5@adventure-works.com    \$80,000.00        5                   5                          Bachelors              Licenciatura           Bac + 4               Professional            Profesional             Cadre                  1                    4                     7553 Harness       &nbsp;                  1 (11) 500     2005-07-26              1-2 Miles
+
+  **6**     11005             22                 AW00011005                 &nbsp;           Julio           &nbsp;                Ruiz           0               1969-08-05      S                   &nbsp;            M            julio1@adventure-works.com        \$70,000.00        0                   0                          Bachelors              Licenciatura           Bac + 4               Professional            Profesional             Cadre                  1                    1                     7305 Humphrey      &nbsp;                  1 (11) 500     2005-07-02              5-10 Miles
+
+  **7**     11006             8                  AW00011006                 &nbsp;           Janet           G                Alvarez        0               1969-12-06      S                   &nbsp;            F            janet9@adventure-works.com        \$70,000.00        0                   0                          Bachelors              Licenciatura           Bac + 4               Professional            Profesional             Cadre                  1                    1                     2612 Berry Dr      &nbsp;                  1 (11) 500     2005-07-27              5-10 Miles
+
+  **8**     11007             40                 AW00011007                 &nbsp;           Marco           &nbsp;                Mehta          0               1968-05-09      M                   &nbsp;            M            marco14@adventure-works.com       \$60,000.00        3                   3                          Bachelors              Licenciatura           Bac + 4               Professional            Profesional             Cadre                  1                    2                     942 Brook Street   &nbsp;                  1 (11) 500     2005-07-12              0-1 Miles
+
+  **9**     11008             32                 AW00011008                 &nbsp;           Rob             &nbsp;                Verhoff        0               1968-07-07      S                   &nbsp;            F            rob4@adventure-works.com          \$60,000.00        4                   4                          Bachelors              Licenciatura           Bac + 4               Professional            Profesional             Cadre                  1                    3                     624 Peabody Road   &nbsp;                  1 (11) 500     2005-07-28              10+ Miles
+
+  **10**    11009             25                 AW00011009                 &nbsp;           Shannon         C                Carlson        0               1968-04-01      S                   &nbsp;            M            shannon38@adventure-works.com     \$70,000.00        0                   0                          Bachelors              Licenciatura           Bac + 4               Professional            Profesional             Cadre                  0                    1                     3839 Northgate     &nbsp;                  1 (11) 500     2005-07-30              5-10 Miles
+
+  **11**    11010             22                 AW00011010                 &nbsp;           Jacquelyn       C                Suarez         0               1968-02-06      S                   &nbsp;            F            jacquelyn20@adventure-works.com   \$70,000.00        0                   0                          Bachelors              Licenciatura           Bac + 4               Professional            Profesional             Cadre                  0                    1                     7800 Corrinne      &nbsp;                  1 (11) 500     2005-07-17              5-10 Miles
+
+  **12**    11011             22                 AW00011011                 &nbsp;           Curtis          &nbsp;                Lu             0               1967-11-04      M                   &nbsp;            M            curtis9@adventure-works.com       \$60,000.00        4                   4                          Bachelors              Licenciatura           Bac + 4               Professional            Profesional             Cadre                  1                    4                     1224 Shoenic       &nbsp;                  1 (11) 500     2005-07-02              10+ Miles
+
+  **13**    11012             611                AW00011012                 &nbsp;           Lauren          M                Walker         0               1972-01-18      M                   &nbsp;            F            lauren41@adventure-works.com      \$100,000.00       2                   0                          Bachelors              Licenciatura           Bac + 4               Management              GestiÃ³n                Direction              1                    2                     4785 Scott Street  &nbsp;                  717-555-0164   2007-09-17              1-2 Miles
+
+  **14**    11013             543                AW00011013                 &nbsp;           Ian             M                Jenkins        0               1972-08-06      M                   &nbsp;            M            ian47@adventure-works.com         \$100,000.00       2                   0                          Bachelors              Licenciatura           Bac + 4               Management              GestiÃ³n                Direction              1                    3                     7902 Hudson Ave.   &nbsp;                  817-555-0185   2007-10-15              0-1 Miles
+
+  **15**    11014             634                AW00011014                 &nbsp;           Sydney          &nbsp;                Bennett        0               1972-05-09      S                   &nbsp;            F            sydney23@adventure-works.com      \$100,000.00       3                   0                          Bachelors              Licenciatura           Bac + 4               Management              GestiÃ³n                Direction              0                    3                     9011 Tank Drive    &nbsp;                  431-555-0156   2007-09-24              1-2 Miles
+  ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+  : Page Layout
+
+: Procedure Print: Data Set MSSQLAW.DimCustomer</code></pre>
+<p><strong>4) Setting up SAS ODBC MSSQL connection to <em>master</em> database using SQL pass-through method:</strong></p>
+<p><strong>SOURCE CODE:</strong></p>
+<pre><code>proc sql outobs=15;
+connectto odbc as msql2 (user='userName' password='passWord' datasrc=dbpcsql );
+select * from connection to msql2 (select * from master.dbo.spt_monitor);
+disconnect from msql2;
+
+quit;</code></pre>
+<p><strong>OUTPUT:</strong></p>
+<pre><code>**SAS LOG:**
+17 proc sql outobs=15;
+18 connect to odbc as msql2 (user='userName' password=XXXXXX datasrc=dbpcsql );
+19 select * from connection to msql2 (select * from master.dbo.spt_monitor);
+20 disconnect from msql2;
+21 quit;
+NOTE: PROCEDURE SQL used (Total process time):
+real time 0.04 seconds
+cpu time 0.01 seconds
+
+**Results Viewer:sashtml**</code></pre>
+<p>The SAS System</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 13%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 5%">
+<col style="width: 10%">
+<col style="width: 8%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 8%">
+<col style="width: 9%">
+<col style="width: 10%">
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>lastrun</strong></th>
+<th><strong>cpu_busy</strong></th>
+<th><strong>io_busy</strong></th>
+<th><strong>idle</strong></th>
+<th><strong>pack_received</strong></th>
+<th><strong>pack_sent</strong></th>
+<th><strong>connections</strong></th>
+<th><strong>pack_errors</strong></th>
+<th><strong>total_read</strong></th>
+<th><strong>total_write</strong></th>
+<th><strong>total_errors</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>02APR2010:17:34:58.817</td>
+<td>9</td>
+<td>7</td>
+<td>792</td>
+<td>28</td>
+<td>28</td>
+<td>14</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<pre><code>  ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  **lastrun**              **cpu_busy**   **io_busy**   **idle**   **pack_received**   **pack_sent**   **connections**   **pack_errors**   **total_read**   **total_write**   **total_errors**
+  ------------------------ -------------- ------------- ---------- ------------------- --------------- ----------------- ----------------- ---------------- ----------------- ------------------
+  02APR2010:17:34:58.817   9              7             792        28                  28              14                0                 0                0                 0
+  ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+  : Page Layout
+
+: Procedure SQL: Query Results</code></pre>
+<p><strong>5) Setting up SAS ODBC MSSQL connection to <em>AdventureWorksDW</em> database using SQL pass-through method:</strong> <strong>SOURCE CODE:</strong></p>
+<pre><code>proc sql outobs=15;
+connectto odbc as msql2 (user='userName' password='passWord' datasrc=dbpcsql );
+select * from connection to msql2 (select * from AdventureWorksDW2008R2.dbo.DimCustomer);
+
+disconnect from msql2;
+
+quit;</code></pre>
+<p><strong>OUTPUT:</strong></p>
+<pre><code>**SAS LOG:**
+22 proc sql outobs=15;
+23 connect to odbc as msql3 (user='userName' password=XXXXXX datasrc=dbpcsql );
+24 select * from connection to msql3 (select * from 
+24 ! AdventureWorksDW2008R2.dbo.DimCustomer);
+WARNING: Statement terminated early due to OUTOBS=15 option.
+25 disconnect from msql3;
+26 quit;
+
+ NOTE: PROCEDURE SQL used (Total process time):
+real time 0.35 seconds
+cpu time 0.03 seconds
+**Results Viewer:sashtml**</code></pre>
+<p>The SAS System</p>
+<div class="table-responsive">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 3%">
+<col style="width: 3%">
+<col style="width: 4%">
+<col style="width: 1%">
+<col style="width: 2%">
+<col style="width: 2%">
+<col style="width: 2%">
+<col style="width: 2%">
+<col style="width: 2%">
+<col style="width: 3%">
+<col style="width: 2%">
+<col style="width: 2%">
+<col style="width: 6%">
+<col style="width: 3%">
+<col style="width: 3%">
+<col style="width: 4%">
+<col style="width: 3%">
+<col style="width: 3%">
+<col style="width: 3%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 3%">
+<col style="width: 3%">
+<col style="width: 3%">
+<col style="width: 3%">
+<col style="width: 3%">
+<col style="width: 3%">
+<col style="width: 4%">
+<col style="width: 3%">
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>CustomerKey</strong></th>
+<th><strong>GeographyKey</strong></th>
+<th><strong>CustomerAlternateKey</strong></th>
+<th><strong>Title</strong></th>
+<th><strong>FirstName</strong></th>
+<th><strong>MiddleName</strong></th>
+<th><strong>LastName</strong></th>
+<th><strong>NameStyle</strong></th>
+<th><strong>BirthDate</strong></th>
+<th><strong>MaritalStatus</strong></th>
+<th><strong>Suffix</strong></th>
+<th><strong>Gender</strong></th>
+<th><strong>EmailAddress</strong></th>
+<th><strong>YearlyIncome</strong></th>
+<th><strong>TotalChildren</strong></th>
+<th><strong>NumberChildrenAtHome</strong></th>
+<th><strong>EnglishEducation</strong></th>
+<th><strong>SpanishEducation</strong></th>
+<th><strong>FrenchEducation</strong></th>
+<th><strong>EnglishOccupation</strong></th>
+<th><strong>SpanishOccupation</strong></th>
+<th><strong>FrenchOccupation</strong></th>
+<th><strong>HouseOwnerFlag</strong></th>
+<th><strong>NumberCarsOwned</strong></th>
+<th><strong>AddressLine1</strong></th>
+<th><strong>AddressLine2</strong></th>
+<th><strong>Phone</strong></th>
+<th><strong>DateFirstPurchase</strong></th>
+<th><strong>CommuteDistance</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>11000</td>
+<td>26</td>
+<td>AW00011000</td>
+<td></td>
+<td>Jon</td>
+<td>V</td>
+<td>Yang</td>
+<td>0</td>
+<td>1970-04-08</td>
+<td>M</td>
+<td></td>
+<td>M</td>
+<td>jon24@adventure-works.com</td>
+<td>$90,000.00</td>
+<td>2</td>
+<td>0</td>
+<td>Bachelors</td>
+<td>Licenciatura</td>
+<td>Bac + 4</td>
+<td>Professional</td>
+<td>Profesional</td>
+<td>Cadre</td>
+<td>1</td>
+<td>0</td>
+<td>3761 N. 14th St</td>
+<td></td>
+<td>1 (11) 500 555-0162</td>
+<td>2005-07-22</td>
+<td>1-2 Miles</td>
+</tr>
+<tr class="even">
+<td>11001</td>
+<td>37</td>
+<td>AW00011001</td>
+<td></td>
+<td>Eugene</td>
+<td>L</td>
+<td>Huang</td>
+<td>0</td>
+<td>1969-05-14</td>
+<td>S</td>
+<td></td>
+<td>M</td>
+<td>eugene10@adventure-works.com</td>
+<td>$60,000.00</td>
+<td>3</td>
+<td>3</td>
+<td>Bachelors</td>
+<td>Licenciatura</td>
+<td>Bac + 4</td>
+<td>Professional</td>
+<td>Profesional</td>
+<td>Cadre</td>
+<td>0</td>
+<td>1</td>
+<td>2243 W St.</td>
+<td></td>
+<td>1 (11) 500 555-0110</td>
+<td>2005-07-18</td>
+<td>0-1 Miles</td>
+</tr>
+<tr class="odd">
+<td>11002</td>
+<td>31</td>
+<td>AW00011002</td>
+<td></td>
+<td>Ruben</td>
+<td></td>
+<td>Torres</td>
+<td>0</td>
+<td>1969-08-12</td>
+<td>M</td>
+<td></td>
+<td>M</td>
+<td>ruben35@adventure-works.com</td>
+<td>$60,000.00</td>
+<td>3</td>
+<td>3</td>
+<td>Bachelors</td>
+<td>Licenciatura</td>
+<td>Bac + 4</td>
+<td>Professional</td>
+<td>Profesional</td>
+<td>Cadre</td>
+<td>1</td>
+<td>1</td>
+<td>5844 Linden Land</td>
+<td></td>
+<td>1 (11) 500 555-0184</td>
+<td>2005-07-10</td>
+<td>2-5 Miles</td>
+</tr>
+<tr class="even">
+<td>11003</td>
+<td>11</td>
+<td>AW00011003</td>
+<td></td>
+<td>Christy</td>
+<td></td>
+<td>Zhu</td>
+<td>0</td>
+<td>1972-02-15</td>
+<td>S</td>
+<td></td>
+<td>F</td>
+<td>christy12@adventure-works.com</td>
+<td>$70,000.00</td>
+<td>0</td>
+<td>0</td>
+<td>Bachelors</td>
+<td>Licenciatura</td>
+<td>Bac + 4</td>
+<td>Professional</td>
+<td>Profesional</td>
+<td>Cadre</td>
+<td>0</td>
+<td>1</td>
+<td>1825 Village Pl.</td>
+<td></td>
+<td>1 (11) 500 555-0162</td>
+<td>2005-07-01</td>
+<td>5-10 Miles</td>
+</tr>
+<tr class="odd">
+<td>11004</td>
+<td>19</td>
+<td>AW00011004</td>
+<td></td>
+<td>Elizabeth</td>
+<td></td>
+<td>Johnson</td>
+<td>0</td>
+<td>1972-08-08</td>
+<td>S</td>
+<td></td>
+<td>F</td>
+<td>elizabeth5@adventure-works.com</td>
+<td>$80,000.00</td>
+<td>5</td>
+<td>5</td>
+<td>Bachelors</td>
+<td>Licenciatura</td>
+<td>Bac + 4</td>
+<td>Professional</td>
+<td>Profesional</td>
+<td>Cadre</td>
+<td>1</td>
+<td>4</td>
+<td>7553 Harness Circle</td>
+<td></td>
+<td>1 (11) 500 555-0131</td>
+<td>2005-07-26</td>
+<td>1-2 Miles</td>
+</tr>
+<tr class="even">
+<td>11005</td>
+<td>22</td>
+<td>AW00011005</td>
+<td></td>
+<td>Julio</td>
+<td></td>
+<td>Ruiz</td>
+<td>0</td>
+<td>1969-08-05</td>
+<td>S</td>
+<td></td>
+<td>M</td>
+<td>julio1@adventure-works.com</td>
+<td>$70,000.00</td>
+<td>0</td>
+<td>0</td>
+<td>Bachelors</td>
+<td>Licenciatura</td>
+<td>Bac + 4</td>
+<td>Professional</td>
+<td>Profesional</td>
+<td>Cadre</td>
+<td>1</td>
+<td>1</td>
+<td>7305 Humphrey Drive</td>
+<td></td>
+<td>1 (11) 500 555-0151</td>
+<td>2005-07-02</td>
+<td>5-10 Miles</td>
+</tr>
+<tr class="odd">
+<td>11006</td>
+<td>8</td>
+<td>AW00011006</td>
+<td></td>
+<td>Janet</td>
+<td>G</td>
+<td>Alvarez</td>
+<td>0</td>
+<td>1969-12-06</td>
+<td>S</td>
+<td></td>
+<td>F</td>
+<td>janet9@adventure-works.com</td>
+<td>$70,000.00</td>
+<td>0</td>
+<td>0</td>
+<td>Bachelors</td>
+<td>Licenciatura</td>
+<td>Bac + 4</td>
+<td>Professional</td>
+<td>Profesional</td>
+<td>Cadre</td>
+<td>1</td>
+<td>1</td>
+<td>2612 Berry Dr</td>
+<td></td>
+<td>1 (11) 500 555-0184</td>
+<td>2005-07-27</td>
+<td>5-10 Miles</td>
+</tr>
+<tr class="even">
+<td>11007</td>
+<td>40</td>
+<td>AW00011007</td>
+<td></td>
+<td>Marco</td>
+<td></td>
+<td>Mehta</td>
+<td>0</td>
+<td>1968-05-09</td>
+<td>M</td>
+<td></td>
+<td>M</td>
+<td>marco14@adventure-works.com</td>
+<td>$60,000.00</td>
+<td>3</td>
+<td>3</td>
+<td>Bachelors</td>
+<td>Licenciatura</td>
+<td>Bac + 4</td>
+<td>Professional</td>
+<td>Profesional</td>
+<td>Cadre</td>
+<td>1</td>
+<td>2</td>
+<td>942 Brook Street</td>
+<td></td>
+<td>1 (11) 500 555-0126</td>
+<td>2005-07-12</td>
+<td>0-1 Miles</td>
+</tr>
+<tr class="odd">
+<td>11008</td>
+<td>32</td>
+<td>AW00011008</td>
+<td></td>
+<td>Rob</td>
+<td></td>
+<td>Verhoff</td>
+<td>0</td>
+<td>1968-07-07</td>
+<td>S</td>
+<td></td>
+<td>F</td>
+<td>rob4@adventure-works.com</td>
+<td>$60,000.00</td>
+<td>4</td>
+<td>4</td>
+<td>Bachelors</td>
+<td>Licenciatura</td>
+<td>Bac + 4</td>
+<td>Professional</td>
+<td>Profesional</td>
+<td>Cadre</td>
+<td>1</td>
+<td>3</td>
+<td>624 Peabody Road</td>
+<td></td>
+<td>1 (11) 500 555-0164</td>
+<td>2005-07-28</td>
+<td>10+ Miles</td>
+</tr>
+<tr class="even">
+<td>11009</td>
+<td>25</td>
+<td>AW00011009</td>
+<td></td>
+<td>Shannon</td>
+<td>C</td>
+<td>Carlson</td>
+<td>0</td>
+<td>1968-04-01</td>
+<td>S</td>
+<td></td>
+<td>M</td>
+<td>shannon38@adventure-works.com</td>
+<td>$70,000.00</td>
+<td>0</td>
+<td>0</td>
+<td>Bachelors</td>
+<td>Licenciatura</td>
+<td>Bac + 4</td>
+<td>Professional</td>
+<td>Profesional</td>
+<td>Cadre</td>
+<td>0</td>
+<td>1</td>
+<td>3839 Northgate Road</td>
+<td></td>
+<td>1 (11) 500 555-0110</td>
+<td>2005-07-30</td>
+<td>5-10 Miles</td>
+</tr>
+<tr class="odd">
+<td>11010</td>
+<td>22</td>
+<td>AW00011010</td>
+<td></td>
+<td>Jacquelyn</td>
+<td>C</td>
+<td>Suarez</td>
+<td>0</td>
+<td>1968-02-06</td>
+<td>S</td>
+<td></td>
+<td>F</td>
+<td>jacquelyn20@adventure-works.com</td>
+<td>$70,000.00</td>
+<td>0</td>
+<td>0</td>
+<td>Bachelors</td>
+<td>Licenciatura</td>
+<td>Bac + 4</td>
+<td>Professional</td>
+<td>Profesional</td>
+<td>Cadre</td>
+<td>0</td>
+<td>1</td>
+<td>7800 Corrinne Court</td>
+<td></td>
+<td>1 (11) 500 555-0169</td>
+<td>2005-07-17</td>
+<td>5-10 Miles</td>
+</tr>
+<tr class="even">
+<td>11011</td>
+<td>22</td>
+<td>AW00011011</td>
+<td></td>
+<td>Curtis</td>
+<td></td>
+<td>Lu</td>
+<td>0</td>
+<td>1967-11-04</td>
+<td>M</td>
+<td></td>
+<td>M</td>
+<td>curtis9@adventure-works.com</td>
+<td>$60,000.00</td>
+<td>4</td>
+<td>4</td>
+<td>Bachelors</td>
+<td>Licenciatura</td>
+<td>Bac + 4</td>
+<td>Professional</td>
+<td>Profesional</td>
+<td>Cadre</td>
+<td>1</td>
+<td>4</td>
+<td>1224 Shoenic</td>
+<td></td>
+<td>1 (11) 500 555-0117</td>
+<td>2005-07-02</td>
+<td>10+ Miles</td>
+</tr>
+<tr class="odd">
+<td>11012</td>
+<td>611</td>
+<td>AW00011012</td>
+<td></td>
+<td>Lauren</td>
+<td>M</td>
+<td>Walker</td>
+<td>0</td>
+<td>1972-01-18</td>
+<td>M</td>
+<td></td>
+<td>F</td>
+<td>lauren41@adventure-works.com</td>
+<td>$100,000.00</td>
+<td>2</td>
+<td>0</td>
+<td>Bachelors</td>
+<td>Licenciatura</td>
+<td>Bac + 4</td>
+<td>Management</td>
+<td>GestiÃ³n</td>
+<td>Direction</td>
+<td>1</td>
+<td>2</td>
+<td>4785 Scott Street</td>
+<td></td>
+<td>717-555-0164</td>
+<td>2007-09-17</td>
+<td>1-2 Miles</td>
+</tr>
+<tr class="even">
+<td>11013</td>
+<td>543</td>
+<td>AW00011013</td>
+<td></td>
+<td>Ian</td>
+<td>M</td>
+<td>Jenkins</td>
+<td>0</td>
+<td>1972-08-06</td>
+<td>M</td>
+<td></td>
+<td>M</td>
+<td>ian47@adventure-works.com</td>
+<td>$100,000.00</td>
+<td>2</td>
+<td>0</td>
+<td>Bachelors</td>
+<td>Licenciatura</td>
+<td>Bac + 4</td>
+<td>Management</td>
+<td>GestiÃ³n</td>
+<td>Direction</td>
+<td>1</td>
+<td>3</td>
+<td>7902 Hudson Ave.</td>
+<td></td>
+<td>817-555-0185</td>
+<td>2007-10-15</td>
+<td>0-1 Miles</td>
+</tr>
+<tr class="odd">
+<td>11014</td>
+<td>634</td>
+<td>AW00011014</td>
+<td></td>
+<td>Sydney</td>
+<td></td>
+<td>Bennett</td>
+<td>0</td>
+<td>1972-05-09</td>
+<td>S</td>
+<td></td>
+<td>F</td>
+<td>sydney23@adventure-works.com</td>
+<td>$100,000.00</td>
+<td>3</td>
+<td>0</td>
+<td>Bachelors</td>
+<td>Licenciatura</td>
+<td>Bac + 4</td>
+<td>Management</td>
+<td>GestiÃ³n</td>
+<td>Direction</td>
+<td>0</td>
+<td>3</td>
+<td>9011 Tank Drive</td>
+<td></td>
+<td>431-555-0156</td>
+<td>2007-09-24</td>
+<td>1-2 Miles</td>
+</tr>
+</tbody>
+</table>
+</div>
+<pre><code>  ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  **CustomerKey**   **GeographyKey**   **CustomerAlternateKey**   **Title**   **FirstName**   **MiddleName**   **LastName**   **NameStyle**   **BirthDate**   **MaritalStatus**   **Suffix**   **Gender**   **EmailAddress**                  **YearlyIncome**   **TotalChildren**   **NumberChildrenAtHome**   **EnglishEducation**   **SpanishEducation**   **FrenchEducation**   **EnglishOccupation**   **SpanishOccupation**   **FrenchOccupation**   **HouseOwnerFlag**   **NumberCarsOwned**   **AddressLine1**   **AddressLine2**   **Phone**      **DateFirstPurchase**   **CommuteDistance**
+  ----------------- ------------------ -------------------------- ----------- --------------- ---------------- -------------- --------------- --------------- ------------------- ------------ ------------ --------------------------------- ------------------ ------------------- -------------------------- ---------------------- ---------------------- --------------------- ----------------------- ----------------------- ---------------------- -------------------- --------------------- ------------------ ------------------ -------------- ----------------------- ---------------------
+  11000             26                 AW00011000                 &nbsp;           Jon             V                Yang           0               1970-04-08      M                   &nbsp;            M            jon24@adventure-works.com         \$90,000.00        2                   0                          Bachelors              Licenciatura           Bac + 4               Professional            Profesional             Cadre                  1                    0                     3761 N. 14th St    &nbsp;                  1 (11) 500     2005-07-22              1-2 Miles
+  11001             37                 AW00011001                 &nbsp;           Eugene          L                Huang          0               1969-05-14      S                   &nbsp;            M            eugene10@adventure-works.com      \$60,000.00        3                   3                          Bachelors              Licenciatura           Bac + 4               Professional            Profesional             Cadre                  0                    1                     2243 W St.         &nbsp;                  1 (11) 500     2005-07-18              0-1 Miles
+  11002             31                 AW00011002                 &nbsp;           Ruben           &nbsp;                Torres         0               1969-08-12      M                   &nbsp;            M            ruben35@adventure-works.com       \$60,000.00        3                   3                          Bachelors              Licenciatura           Bac + 4               Professional            Profesional             Cadre                  1                    1                     5844 Linden Land   &nbsp;                  1 (11) 500     2005-07-10              2-5 Miles
+  11003             11                 AW00011003                 &nbsp;           Christy         &nbsp;                Zhu            0               1972-02-15      S                   &nbsp;            F            christy12@adventure-works.com     \$70,000.00        0                   0                          Bachelors              Licenciatura           Bac + 4               Professional            Profesional             Cadre                  0                    1                     1825 Village Pl.   &nbsp;                  1 (11) 500     2005-07-01              5-10 Miles
+  11004             19                 AW00011004                 &nbsp;           Elizabeth       &nbsp;                Johnson        0               1972-08-08      S                   &nbsp;            F            elizabeth5@adventure-works.com    \$80,000.00        5                   5                          Bachelors              Licenciatura           Bac + 4               Professional            Profesional             Cadre                  1                    4                     7553 Harness       &nbsp;                  1 (11) 500     2005-07-26              1-2 Miles
+  11005             22                 AW00011005                 &nbsp;           Julio           &nbsp;                Ruiz           0               1969-08-05      S                   &nbsp;            M            julio1@adventure-works.com        \$70,000.00        0                   0                          Bachelors              Licenciatura           Bac + 4               Professional            Profesional             Cadre                  1                    1                     7305 Humphrey      &nbsp;                  1 (11) 500     2005-07-02              5-10 Miles
+  11006             8                  AW00011006                 &nbsp;           Janet           G                Alvarez        0               1969-12-06      S                   &nbsp;            F            janet9@adventure-works.com        \$70,000.00        0                   0                          Bachelors              Licenciatura           Bac + 4               Professional            Profesional             Cadre                  1                    1                     2612 Berry Dr      &nbsp;                  1 (11) 500     2005-07-27              5-10 Miles
+  11007             40                 AW00011007                 &nbsp;           Marco           &nbsp;                Mehta          0               1968-05-09      M                   &nbsp;            M            marco14@adventure-works.com       \$60,000.00        3                   3                          Bachelors              Licenciatura           Bac + 4               Professional            Profesional             Cadre                  1                    2                     942 Brook Street   &nbsp;                  1 (11) 500     2005-07-12              0-1 Miles
+  11008             32                 AW00011008                 &nbsp;           Rob             &nbsp;                Verhoff        0               1968-07-07      S                   &nbsp;            F            rob4@adventure-works.com          \$60,000.00        4                   4                          Bachelors              Licenciatura           Bac + 4               Professional            Profesional             Cadre                  1                    3                     624 Peabody Road   &nbsp;                  1 (11) 500     2005-07-28              10+ Miles
+  11009             25                 AW00011009                 &nbsp;           Shannon         C                Carlson        0               1968-04-01      S                   &nbsp;            M            shannon38@adventure-works.com     \$70,000.00        0                   0                          Bachelors              Licenciatura           Bac + 4               Professional            Profesional             Cadre                  0                    1                     3839 Northgate     &nbsp;                  1 (11) 500     2005-07-30              5-10 Miles
+  11010             22                 AW00011010                 &nbsp;           Jacquelyn       C                Suarez         0               1968-02-06      S                   &nbsp;            F            jacquelyn20@adventure-works.com   \$70,000.00        0                   0                          Bachelors              Licenciatura           Bac + 4               Professional            Profesional             Cadre                  0                    1                     7800 Corrinne      &nbsp;                  1 (11) 500     2005-07-17              5-10 Miles
+  11011             22                 AW00011011                 &nbsp;           Curtis          &nbsp;                Lu             0               1967-11-04      M                   &nbsp;            M            curtis9@adventure-works.com       \$60,000.00        4                   4                          Bachelors              Licenciatura           Bac + 4               Professional            Profesional             Cadre                  1                    4                     1224 Shoenic       &nbsp;                  1 (11) 500     2005-07-02              10+ Miles
+  11012             611                AW00011012                 &nbsp;           Lauren          M                Walker         0               1972-01-18      M                   &nbsp;            F            lauren41@adventure-works.com      \$100,000.00       2                   0                          Bachelors              Licenciatura           Bac + 4               Management              GestiÃ³n                Direction              1                    2                     4785 Scott Street  &nbsp;                  717-555-0164   2007-09-17              1-2 Miles
+  11013             543                AW00011013                 &nbsp;           Ian             M                Jenkins        0               1972-08-06      M                   &nbsp;            M            ian47@adventure-works.com         \$100,000.00       2                   0                          Bachelors              Licenciatura           Bac + 4               Management              GestiÃ³n                Direction              1                    3                     7902 Hudson Ave.   &nbsp;                  817-555-0185   2007-10-15              0-1 Miles
+  11014             634                AW00011014                 &nbsp;           Sydney          &nbsp;                Bennett        0               1972-05-09      S                   &nbsp;            F            sydney23@adventure-works.com      \$100,000.00       3                   0                          Bachelors              Licenciatura           Bac + 4               Management              GestiÃ³n                Direction              0                    3                     9011 Tank Drive    &nbsp;                  431-555-0156   2007-09-24              1-2 Miles
+  ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+  : Page Layout
+
+: Procedure SQL: Query Results</code></pre>
+</section>
+<section id="summary" class="level2">
+<h2 class="anchored" data-anchor-id="summary">Summary:</h2>
+<p>The SAS/ACCESS interface component is used to connect to various kinds of databases. Three main ways of connecting SAS with MSSQL are using SAS/ACCESS interface for MS SQL Server, SAS/ACCESS interface for OLE DB &amp; SAS/ACCESS interface for ODBC. SAS allows data retrieval/storage using both LIBNAME statement and direct SQL Pass-Through statement method.</p>
+<p>What is shown above is very elementary code just to get the process started. Students learning data science/analytics should try to use different combinations of SAS methods &amp; SAS interfaces to retrieve data from a database, manipulate it using SAS/SQL &amp; write the processed data sets back to the database.</p>
+</section>
+<section id="references" class="level2">
+<h2 class="anchored" data-anchor-id="references">References:</h2>
+<ol type="1">
+<li>SAS/ACCESS 9.2 for Relational Databases Reference, Fourth Edition. <a href="http://support.sas.com/documentation/cdl/en/acreldb/63647/HTML/default/viewer.htm#titlepage.htm" class="uri">http://support.sas.com/documentation/cdl/en/acreldb/63647/HTML/default/viewer.htm#titlepage.htm</a><br>
+</li>
+<li>SAS 9.2 SQL Procedure User’s Guide. <a href="http://support.sas.com/documentation/cdl/en/sqlproc/62086/HTML/default/viewer.htm#titlepage.htm" class="uri">http://support.sas.com/documentation/cdl/en/sqlproc/62086/HTML/default/viewer.htm#titlepage.htm</a></li>
+</ol>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/fortunewalla\.net");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

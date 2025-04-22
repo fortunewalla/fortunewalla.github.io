@@ -1,9 +1,0 @@
----
-title: "11-geointfinalproject"
-#author: "Fortune Walla"
-date: "2014-07-31"
-date-modified: "2014-07-31"
-categories: [article,datascience]
-#image: "image.jpg"
-#draft: true
----
